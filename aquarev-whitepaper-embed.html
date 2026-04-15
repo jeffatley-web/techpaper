@@ -7,14 +7,14 @@
   --green:#22C55E;--green-dk:#166534;
   --text:#1A2E3C;--muted:#5A8A9F;
   --border:rgba(0,180,216,0.15);--border2:rgba(0,180,216,0.25);
+  --page-pad:clamp(20px,6vw,88px);
   --display:'Playfair Display',Georgia,serif;
   --serif:'Source Serif 4',Georgia,serif;
   --mono:'JetBrains Mono',monospace;
 }
 #wp-embed{font-family:var(--serif);font-size:17px;line-height:1.75;color:var(--text);}
-#progress-bar{position:fixed;top:77px;left:0;z-index:1000;height:3px;width:0%;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width .1s linear;pointer-events:none;}
 /* HERO */
-#wp-hero{background:var(--navy);position:relative;overflow:hidden;padding:72px 48px 60px;margin-bottom:0;}
+#wp-hero{background:var(--navy);position:relative;overflow:hidden;padding:90px var(--page-pad) 60px;margin-bottom:0;}
 #wp-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -20%,rgba(0,180,216,.14) 0%,transparent 65%),radial-gradient(ellipse 50% 80% at 100% 50%,rgba(0,40,90,.35) 0%,transparent 60%);pointer-events:none;}
 .wp-hero-inner{position:relative;z-index:1;}
 .wp-eyebrow{font-family:var(--display);font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--teal);margin-bottom:20px;font-style:italic;}
@@ -42,7 +42,7 @@
 .hs-lbl{font-family:var(--serif);font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);}
 .wp-hero-disc{margin-top:24px;padding-top:22px;border-top:1px solid rgba(0,180,216,.12);font-family:var(--serif);font-size:12px;font-style:italic;color:rgba(90,138,159,.7);line-height:1.6;max-width:760px;}
 /* LAYOUT */
-#wp-layout{display:grid;grid-template-columns:1fr;gap:0;padding:60px 0 80px;}
+#wp-layout{display:grid;grid-template-columns:1fr;gap:0;padding:60px var(--page-pad) 80px;}
 @media(min-width:1100px){#wp-layout{grid-template-columns:240px 1fr;gap:52px;align-items:start;}}
 /* SIDEBAR */
 #wp-sidebar{display:none;position:sticky;top:157px;max-height:calc(100vh - 177px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(0,180,216,.2) transparent;}
@@ -168,9 +168,45 @@ tbody td:first-child{font-weight:600;color:var(--navy);}
 
 /* Webflow sticky navbar offset */
 [id^="wp-s"], [id^="wp-exec"], [id^="wp-comm"], [id^="wp-app"]{scroll-margin-top:90px;}
+
+/* ── Mobile & responsive fixes ── */
+@media(max-width:767px){
+  #wp-embed{font-size:15px;line-height:1.7;}
+  #wp-hero{padding:80px 20px 48px;}
+  .wp-hero-title{font-size:clamp(22px,7vw,36px);}
+  .wp-hero-sub{font-size:15px;}
+  .wp-hero-stats{flex-wrap:wrap;}
+  .hs{min-width:calc(50% - 1px);border-right:none;border-bottom:1px solid rgba(0,180,216,.1);}
+  .hs:last-child{border-bottom:none;}
+  .hs-num{font-size:28px;}
+  .sec-title{font-size:20px;}
+  h2.sub{font-size:16px;margin:28px 0 12px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stat-num{font-size:30px;}
+  .steps-grid{grid-template-columns:1fr 1fr;}
+  .pat-grid{grid-template-columns:1fr;}
+  .icta{padding:24px 20px;flex-direction:column;}
+  .icta-actions{width:100%;}
+  .icta-actions .btn{flex:1;justify-content:center;}
+  table{font-size:12px;}
+  thead th{font-size:10px;padding:10px 10px;}
+  tbody td{padding:9px 10px;}
+  .callout{grid-template-columns:1fr;}
+  .c-lbl{writing-mode:horizontal-tb;transform:none;padding:8px 14px;font-size:10px;}
+  .chklist li{font-size:13px;}
+  .res-key{min-width:140px;}
+  #wp-layout{padding:40px 20px 60px;}
+}
+@media(min-width:768px) and (max-width:1099px){
+  #wp-embed{font-size:16px;}
+  .wp-hero-title{font-size:clamp(28px,3.5vw,44px);}
+  .sec-title{font-size:23px;}
+  #wp-layout{padding:60px 48px 80px;}
+  #wp-hero{padding:90px 48px 60px;}
+}
 </style>
 
-<div id="progress-bar"></div>
+
 
 
 <section id="wp-hero">
@@ -754,8 +790,7 @@ tbody td:first-child{font-weight:600;color:var(--navy);}
 
 <script>
 (function(){
-const bar=document.getElementById('progress-bar');
-if(bar){window.addEventListener('scroll',function(){const s=window.scrollY,d=document.documentElement.scrollHeight-window.innerHeight;bar.style.width=(s/d*100)+'%';});}
+
 const tog=document.getElementById('wp-toc-toggle');
 const sb=document.getElementById('wp-sidebar');
 const closebtn=document.getElementById('toc-close-btn');
